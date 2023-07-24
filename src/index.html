@@ -3,11 +3,36 @@
 
 <head>
     <meta charset="utf-8">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
     <!-- support for mobile touch devices -->
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 </head>
+
 <body>
-    <h1>Title</h1>
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            <h1>Quentin Nguyen Watch</h1>
+        </div>
+        <div class="top-button-wrapper"><button class="add_clock_button">+</button>
+            <p>Add a new watch</p>
+        </div>
+        <div class="watch-wrapper">
+            <div class="watch-inner-wrapper">
+                <div class="watch-body"></div>
+                <div id="list-buttons">
+                    <button class="button" id="modes">Mode</button>
+                    <button class="button" id="increaseButton" type="button" disabled="true">Add one hour</button>
+                    <button class="button" id="resetTime">Reset</button>
+                    <button class="button" id="lightMode">Light</button>
+                    <button class="button" id="hourReadibility">24h-AM/PM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
+
 </html>
