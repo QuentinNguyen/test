@@ -32,7 +32,7 @@ export class Matrix3x3 {
     }
 
 
-    multiply(matrixA: number[][], matrixB: number[][]) {
+    multiply(matrixA: number[][], matrixB: number[][]): number[][] {
         let matrixResult: number[][] = [[0,0,0],[0,0,0],[0,0,0]];
         for (let i = 0; i < matrixA.length; i++) {
             for (let j = 0; j < matrixA.length; j++) {
@@ -45,7 +45,7 @@ export class Matrix3x3 {
     }
 
 
-    transformVectorToMatrix(vector: number[]){
+    transformVectorToMatrix(vector: number[]):number[][]{
         let matrix : number[][]  = [[0,0,0],[0,0,0],[0,0,0]];
         if(matrix.length !== matrix[0].length && matrix.length !== vector.length){
             throw new Error("The matrix and the vector doesn't have the same dimension");
@@ -117,7 +117,7 @@ export class Matrix3x3 {
         return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
     }
 
-    private checkDerterminant(matrix: number[][]) {
+    private checkDerterminant(matrix: number[][]) : boolean {
         if (this.getDeterminant(matrix) == 0) {
             return false;
         }

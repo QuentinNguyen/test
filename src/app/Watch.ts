@@ -3,17 +3,16 @@ import { IncreaseTime } from "./Events/IncreaseTime";
 import { LightMode } from "./Events/LightMode";
 import { Modes } from "./Events/Mode";
 import { ResertAll } from "./Events/ResetAll";
-
 import { Time } from "./Events/Time";
-import { NewWatches } from "./Events/newWatches";
+
 
 export class Watch {
-    private _hourformat: HourFormat;
-    private _increaseTime: IncreaseTime;
-    private _lightMode: LightMode;
-    private _mode: Modes;
-    private _resetAll: ResertAll;
-    private _currentTime: Date;
+    protected _hourformat: HourFormat;
+    protected _increaseTime: IncreaseTime;
+    protected _lightMode: LightMode;
+    protected _mode: Modes;
+    protected _resetAll: ResertAll;
+    protected _currentTime: Date;
 
 
     constructor(currentTime: Date) {
@@ -26,11 +25,11 @@ export class Watch {
         this._resetAll = new ResertAll();
         this._lightMode = new LightMode(false);
         this.handleEvent();
-        //this.addWatch()
+        
 
     }
 
-    private handleEvent() {
+    protected handleEvent() {
         const parentElement: HTMLElement = document.getElementById("list-buttons");
         parentElement.addEventListener("click", (e: Event) => {
             const targetElement = e.target as HTMLElement;
@@ -56,17 +55,6 @@ export class Watch {
                 }
             }
         })
-    }
-
-    private addWatch() {
-        let button = document.getElementById('animateButton');
-        button.addEventListener("click", () => {
-            let element = document.querySelector('.watch-wrapper') as HTMLElement;
-            console.log(element)
-            const newClock = new NewWatches(this._currentTime, element);
-        })
-
-
     }
 
 }
