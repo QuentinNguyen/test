@@ -1,13 +1,11 @@
-import { Points } from "./IPoints";
-
 export class Matrix3x3 {
 
     private matrixIdentity: number[][] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
 
-    constructor() { }
+    constructor() { /* TODO document why this constructor is empty */ }
 
+    //I need to use it to bring Object to initial position 
     inverse(matrix: number[][]): number[][] {
-
         if (this.checkDerterminant(matrix)) {
             for (let j = 0; j < matrix.length; j++) {
                 let pivotRow = this.findPivot(matrix, j, j);
@@ -15,7 +13,7 @@ export class Matrix3x3 {
                     this.swapLines(matrix, j, pivotRow);
                     this.swapLines(this.matrixIdentity, j, pivotRow);
                 }
-                if (matrix[j][j] != 1) {
+                else if (matrix[j][j] != 1) {
                     let scalar = 1 / matrix[j][j];
                     this.multiplyRow(matrix, j, scalar);
                     this.multiplyRow(this.matrixIdentity, j, scalar);
@@ -35,7 +33,7 @@ export class Matrix3x3 {
 
 
     multiply(matrixA: number[][], matrixB: number[][]) {
-        let matrixResult: number[][] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        let matrixResult: number[][] = [[0,0,0],[0,0,0],[0,0,0]];
         for (let i = 0; i < matrixA.length; i++) {
             for (let j = 0; j < matrixA.length; j++) {
                 for (let k = 0; k < matrixA.length; k++) {
@@ -46,27 +44,25 @@ export class Matrix3x3 {
         return matrixResult;
     }
 
-    multiplyVectorMatrix(vector: number[], matrix: number[][]){
-        if(vector.length !== matrix[0].length){
-            throw new Error("The matrixes dimensions are incompatible.");
-        }
-        let vectorResult : number [] = [0,0,0];
-        for(let i = 0; i < vector.length; i++){
-            for(let j=0; j < matrix.length; j++){
-                vectorResult[i] += vector[j] * matrix[i][j];
-            }; 
-        } 
-        return vectorResult;
-    }
 
-    transformToVector(matrix: number[][], vector: number[]) {
-        let vectorResult: number[] = [0, 0, 0];
+    transformVectorToMatrix(vector: number[]){
+        let matrix : number[][]  = [[0,0,0],[0,0,0],[0,0,0]];
+        if(matrix.length !== matrix[0].length && matrix.length !== vector.length){
+            throw new Error("The matrix and the vector doesn't have the same dimension");
+        }
+
         for (let i = 0; i < matrix.length; i++) {
-            for (let j = 0; j < vector.length; j++) {
-                vectorResult[i] += matrix[i][j] * vector[j];
+            for (let j = 0; j < matrix[0].length; j++) {
+                if(i == j){
+                   matrix[i][j] = vector[i];
+                }
+                else{
+                    matrix[i][j] = 0;
+                }
             }
         }
-        return vectorResult;
+
+        return matrix;
     }
 
     private multiplyRow(matrix: number[][], row: number, scalar: number) {
@@ -104,8 +100,8 @@ export class Matrix3x3 {
     }
 
     private getDeterminant(matrix: number[][]): number {
-        if (matrix.length !== 3 || matrix[0].length !== 3) {
-            throw new Error("The matrix size must be 3x3");
+        if (matrix.length !== matrix[0].length) {
+            throw new Error("The matrix size is not the same");
         }
 
         const a = matrix[0][0];

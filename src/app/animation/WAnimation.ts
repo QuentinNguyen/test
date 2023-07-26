@@ -1,50 +1,59 @@
-import { Points } from "./IPoints";
-import { Matrix3x3 } from "./Matrix3x3";
-import { Vector2D } from "./Vector2D";
+import { Points } from "./Utils/IPoints";
+import { Matrix3x3 } from "./Utils/Matrix3x3";
+import { Vector2D } from "./Utils/Vector2D";
+
 
 export class WAnimation {
 
     private _vector2D: Vector2D = new Vector2D();
     private _matrix3x3: Matrix3x3 = new Matrix3x3();
 
-    constructor(vector2D: Vector2D, matrix3x3: Matrix3x3) {
-        this._vector2D = vector2D;
-        this._matrix3x3 = matrix3x3;
-    }
+    constructor() { }
 
-    transformTranslation(pointStart: Points, pointFinal: Points): number[] {
+    transformTranslation(pointStart: Points, pointFinal: Points): number[][] {
         let translationMatrix = this.buildTranslationMatrix(pointFinal);
-        let vectorStart = this._vector2D.transformPointToMatrix(pointStart);
+        let vectorStart = this._vector2D.transformPointToVector(pointStart);
+        let matrixStart = this._matrix3x3.transformVectorToMatrix(vectorStart);
 
-        return this._matrix3x3.multiplyVectorMatrix(vectorStart, translationMatrix);
+        return this._matrix3x3.multiply(matrixStart, translationMatrix);
     }
 
-    transformScaling(pointStart: Points, pointFinal: Points): number[] {
-        let vectorStart = this._vector2D.transformPointToMatrix(pointStart);
+    transformScaling(pointStart: Points, pointFinal: Points): number[][] {
+        let vectorStart = this._vector2D.transformPointToVector(pointStart);
+        let matrixStart = this._matrix3x3.transformVectorToMatrix(vectorStart);
         let scalingTransformMatrix = this.buildScalingTransformMatrix(pointFinal);
-
-        return this._matrix3x3.multiplyVectorMatrix(vectorStart, scalingTransformMatrix); 
+        return this._matrix3x3.multiply(matrixStart, scalingTransformMatrix);
     }
 
-    transformRotation(): number[]{
-       return;
+    transformRotation(pointStart: Points, pointFinal: Points): number[][] {
+        const angleInRad = Math.atan2(pointFinal.y - pointStart.y, pointFinal.x - pointStart.x);
+
+        let vectorStart = this._vector2D.transformPointToVector(pointStart);
+        let matrixStart = this._matrix3x3.transformVectorToMatrix(vectorStart);
+
+        let rotationTransformMatrix = this.buildRotationTransformMatrix(angleInRad);
+
+        return this._matrix3x3.multiply(matrixStart, rotationTransformMatrix);
     }
 
-    private buildRotationTransformMatrix(pointFinal: Points){
+    private buildRotationTransformMatrix(rad: number) {
         let matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
                 if (i == 0 && j == 0) {
-                    matrix[i][j] = pointFinal.x;
+                    matrix[i][j] = Math.cos(rad);
+                }
+                else if (i == 1 && j == 0) {
+                    matrix[i][j] = Math.sin(rad);
+                }
+                else if (i == 0 && j == 1) {
+                    matrix[i][j] = -Math.sin(rad);
                 }
                 else if (i == 1 && j == 1) {
-                    matrix[i][j] = pointFinal.y;
+                    matrix[i][j] = Math.cos(rad);
                 }
                 else if (i == 2 && j == 2) {
                     matrix[i][j] = 1;
-                }
-                else {
-                    matrix[i][j] = 0;
                 }
             }
         }
@@ -93,4 +102,6 @@ export class WAnimation {
         }
         return matrix
     }
+
+
 }

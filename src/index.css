@@ -5,6 +5,8 @@
 }
 
 .top-wrapper {
+  margin: 20px;
+  padding: 0px;
   display: flex;
   justify-content: center;
 }
@@ -14,13 +16,10 @@ h1 {
 }
 
 .top-button-wrapper {
+  margin: 20px;
+  padding: 0px;
   display: flex;
   flex-direction: row;
-}
-
-div {
-  margin: 20px;
-  padding: 0;
 }
 
 
@@ -58,32 +57,27 @@ div {
   margin: auto;
   width: 400px;
   padding: 10px;
-  max-width: 400px;
   height: 400px;
   border-radius: 50%;
   position: relative;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   z-index: 0;
+  box-shadow: 2px 2px 5px 3px lightgray;
+  background-image: radial-gradient(circle closest-side, #4CAF50, #387F3F);
 }
 
-.watch-inner-wrapper {
-  background-color: #395726;
-}
 
 #list-buttons {
   top: -3%;
   left: -3%;
 }
 
-.watch-body {
-  position: absolute;
-  top: 35%;
-  left: 20%;
-}
-
 .button {
   width: 60px;
   height: 50px;
-  background: linear-gradient(0deg, gray 50%, #395726 50%);
+  background: linear-gradient(0deg, gray 50%, #387F3F 50%);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -116,7 +110,7 @@ div {
 }
 
 .button {
-  --radius: 200px;
+  --radius: 198px;
   transform: translate(-50%, -50%) rotate(var(--angle)) translateY(var(--radius));
 }
 

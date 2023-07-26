@@ -14,5 +14,4 @@ export class Time {
 
         this._divElement.append(this._spanElement);
     }
-
 }

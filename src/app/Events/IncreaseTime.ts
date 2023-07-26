@@ -1,6 +1,3 @@
-import { HourFormat } from "./HourFormat";
-import { Modes } from "./Mode";
-
 export class IncreaseTime {
 
 

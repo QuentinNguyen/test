@@ -13,7 +13,7 @@ export class Newwatchs{
     private _resetAll : ResertAll;
 
     //HTMLELEMENT FOR watch
-    private divBodyElement : HTMLElement;
+    private element : HTMLElement;
 
     private _divElement : HTMLElement;
     private _divElement2 : HTMLElement;
@@ -29,10 +29,11 @@ export class Newwatchs{
     private _buttonElement5 : HTMLElement;
 
 
-    constructor(currentTime: Date, elementClass: string) {
+    constructor(currentTime: Date, element: HTMLElement) {
         
-
-        this.divBodyElement = document.querySelector(elementClass);
+        this.element = element;
+        console.log(element);
+        
         this._divElement = document.createElement("div");
         this._divElement.className = "watch-wrapper";
 
@@ -82,6 +83,6 @@ export class Newwatchs{
 
         this._divElement.append(this._divElement2);
 
-        this.divBodyElement.append(this._divElement);
+        this.element.append(this._divElement);
     }
 }

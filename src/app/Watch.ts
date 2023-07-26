@@ -1,10 +1,11 @@
-import { HourFormat } from "./HourFormat";
-import { IncreaseTime } from "./IncreaseTime";
-import { LightMode } from "./LightMode";
-import { Modes } from "./Mode";
-import { ResertAll } from "./ResetAll";
+import { HourFormat } from "./Events/HourFormat";
+import { IncreaseTime } from "./Events/IncreaseTime";
+import { LightMode } from "./Events/LightMode";
+import { Modes } from "./Events/Mode";
+import { ResertAll } from "./Events/ResetAll";
 
-import { Time } from "./Time";
+import { Time } from "./Events/Time";
+import { Newwatchs } from "./Events/newClocks";
 
 export class Watch {
     private _hourformat: HourFormat;
@@ -21,10 +22,12 @@ export class Watch {
         new Time(this._currentTime, ".watch-body");
         this._mode = new Modes(0);
         this._increaseTime = new IncreaseTime();
-        this._hourformat = new HourFormat(false,)
+        this._hourformat = new HourFormat(false)
         this._resetAll = new ResertAll();
         this._lightMode = new LightMode(false);
         this.handleEvent();
+        //this.addWatch()
+
     }
 
     private handleEvent() {
@@ -39,7 +42,7 @@ export class Watch {
                 this._currentTime = this._hourformat.switchHourFormat(this._hourformat.getShowAMPM, this._currentTime, "watch-time");
             }
             else if (targetElement.id === "resetTime") {
-                this._currentTime = this._resetAll.resetAll(this._mode, "watch-time", "increaseButton");
+                this._currentTime = this._resetAll.resetAll(this._lightMode, this._mode, "watch-time", "increaseButton");
 
             }
             else if (targetElement.id === "lightMode") {
@@ -53,6 +56,17 @@ export class Watch {
                 }
             }
         })
+    }
+
+    private addWatch() {
+        let button = document.getElementById('animateButton');
+        button.addEventListener("click", () => {
+            let element = document.querySelector('.watch-wrapper') as HTMLElement;
+            console.log(element)
+            const newClock = new Newwatchs(this._currentTime, element);
+        })
+
+
     }
 
 }
