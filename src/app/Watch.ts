@@ -5,7 +5,7 @@ import { Modes } from "./Events/Mode";
 import { ResertAll } from "./Events/ResetAll";
 
 import { Time } from "./Events/Time";
-import { Newwatchs } from "./Events/newWatches";
+import { NewWatches } from "./Events/newWatches";
 
 export class Watch {
     private _hourformat: HourFormat;
@@ -63,7 +63,7 @@ export class Watch {
         button.addEventListener("click", () => {
             let element = document.querySelector('.watch-wrapper') as HTMLElement;
             console.log(element)
-            const newClock = new Newwatchs(this._currentTime, element);
+            const newClock = new NewWatches(this._currentTime, element);
         })
 
 
