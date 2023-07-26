@@ -5,7 +5,7 @@ import { Modes } from "./Mode";
 import { ResertAll } from "./ResetAll";
 
 
-export class Newwatchs{
+export class NewWatches{
     private _hourformat: HourFormat;
     private _increaseTime: IncreaseTime;
     private _lightMode: LightMode;

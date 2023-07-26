@@ -5,7 +5,7 @@ import { Modes } from "./Events/Mode";
 import { ResertAll } from "./Events/ResetAll";
 
 import { Time } from "./Events/Time";
-import { Newwatchs } from "./Events/newClocks";
+import { Newwatchs } from "./Events/newWatches";
 
 export class Watch {
     private _hourformat: HourFormat;
