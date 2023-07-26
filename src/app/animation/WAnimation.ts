@@ -36,7 +36,7 @@ export class WAnimation {
         return this._matrix3x3.multiply(matrixStart, rotationTransformMatrix);
     }
 
-    private buildRotationTransformMatrix(rad: number) {
+    private buildRotationTransformMatrix(rad: number): number[][] {
         let matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
@@ -60,7 +60,7 @@ export class WAnimation {
         return matrix
     }
 
-    private buildScalingTransformMatrix(pointFinal: Points) {
+    private buildScalingTransformMatrix(pointFinal: Points): number[][] {
         let matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
